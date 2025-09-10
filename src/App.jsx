@@ -2,7 +2,7 @@
 
 import UserList from "./component/UserList";
 import Header from "./component/Header";
-import UserDetail from "./component/UserDetail";
+import UserProfile from "./component/UserProfile";
 import { useState } from "react";
 function App() {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -17,7 +17,7 @@ function App() {
           <UserList onSelect={handleSelectUser} />
         </div>
         <div className="w-3/4 flex justify-center">
-          <UserDetail selectedUser={selectedUser} />
+          <UserProfile selectedUser={selectedUser} />
         </div>
       </div>
     </>

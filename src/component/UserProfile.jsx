@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 
-const UserDetail = ({ selectedUser }) => {
+const UserProfile = ({ selectedUser }) => {
   const [posts, setPosts] = useState([]);
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
     if (selectedUser) {
@@ -17,6 +18,7 @@ const UserDetail = ({ selectedUser }) => {
           setPosts(data);
         } catch (error) {
           console.error("Error fetching posts:", error);
+          setErrorMsg("Error fetching posts data");
         }
       };
       
@@ -31,6 +33,7 @@ const UserDetail = ({ selectedUser }) => {
           setWeather(data.current_weather);
         } catch (error) {
           console.error("Error fetching weather:", error);
+          setErrorMsg("Error fetching weather data");
         }
       };
       
@@ -49,16 +52,23 @@ const UserDetail = ({ selectedUser }) => {
     );
   }
 
+  {errorMsg && (
+    <div className="w-full h-[500px] flex justify-center items-center">
+      <p className="text-xl font-bold">{errorMsg}</p>
+    </div>
+  );}
+  
   if (loading) {
     return (
       <div className="w-full h-[500px] flex justify-center items-center">
-        <p className="text-xl font-bold">Loading user details...</p>
+        <p className="text-xl font-bold">Loading profile...</p>
       </div>
     );
   }
 
   return (
     <div className="w-full px-[45px] flex-col flex justify-center items-center text-center">
+      
       <div className="flex-col flex justify-center items-center text-center">
         <div className="!h-[70px] w-[70px] p-2 mb-2 bg-blue-500 rounded-full flex items-center justify-center text-white">
           <h3 className="text-3xl font-semibold">
@@ -227,4 +237,4 @@ const UserDetail = ({ selectedUser }) => {
   );
 };
 
-export default UserDetail;
+export default UserProfile;

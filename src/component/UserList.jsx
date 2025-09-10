@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 const UserList = ({ onSelect }) => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState(null);
   const [selectedUserId, setSelectedUserId] = useState(null);
 
   const fetchUsers = async () => {
@@ -15,6 +16,7 @@ const UserList = ({ onSelect }) => {
       setLoading(false);
     } catch (error) {
       console.error("Error fetching users:", error);
+      setErrorMsg("Error fetching users data");
       setLoading(false);
     }
   };
@@ -33,6 +35,11 @@ const UserList = ({ onSelect }) => {
       <div className="px-[30px] py-[15px]">
         <h2 className="text-[30px] font-semibold mb-4 font-sora">Users</h2>
       </div>
+
+      <div className="flex justify-center text-xl font-bold !px-[30px]">
+        {errorMsg}
+      </div>
+
       {loading ? (
         <div className="flex justify-center text-xl font-bold !px-[30px]">
           Loading Users...
